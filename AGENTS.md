@@ -54,7 +54,7 @@ Keep parser rules explicit. A malformed non-empty reminder line must fail the sa
 - DFT dependency and interface metadata are correct.
 - LuaJIT syntax check passes.
 - The DFT settings sidebar opens the personal tactics page when the host list includes it, or the native WoW settings fallback opens it otherwise.
-- `/dftpt` opens the editor, and a line such as `{0:04} Burst` saves and schedules a DFT warning bar/TTS reminder.
+- `/dftpt` opens the editor, and a line such as `{time:00:04.0} - Burst` saves and schedules a DFT warning bar/TTS reminder.
 - Enable/disable scheduling is controlled by the WoW settings checkbox; there are no command-line on/off switches.
 - Encounter end cancels all reminders tagged `DFT_PERSONAL_TACTICS`.
 - No generated files, secrets, or local WoW SavedVariables are committed.

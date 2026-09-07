@@ -25,17 +25,19 @@ The companion addon declares `DreamForgeTools` as a required dependency. It is n
 
 Open the editor with `/dftpt`. On a DFT build whose sidebar list includes `DFTPersonalTactics`, it is also available at `DreamForgeTools -> 战斗 -> DFT 个人战术板`. The addon always registers a native WoW settings page as a fallback because the current official DFT ZIP does not include third-party sidebar registration.
 
-Use one reminder per line:
+Use one non-dynamic MRT reminder per line:
 
 ```text
-{0:04} 王者大军
-{0:35} 第二轮爆发
-{1:10} 留爆发给最终阶段
+{time:00:02.6} - {spell:42650}
+{time:01:33.9} - Use cooldowns
+{time:03:06.8} - Burst with {spell:42650}
 ```
 
-`{0:04}` means four seconds after the encounter starts and `{1:10}` means one minute and ten seconds. Select the encounter ID and `N`, `H`, or `M` difficulty before saving. The default lead time is five seconds: DFT starts the warning bar and TTS at that point, and the bar ends at the configured burst time. Set lead time to `0` for an exact-time reminder.
+The text after `-` is passed unchanged to DFT and may contain plain text, DFT-supported MRT tokens such as `{spell:42650}`, or both. `{time:00:02.6}` means 2.6 seconds after the encounter starts. Select the encounter ID and `N`, `H`, or `M` difficulty before saving. The default lead time is five seconds: DFT starts the warning bar and TTS at that point, and the bar ends at the configured burst time. Set lead time to `0` for an exact-time reminder.
 
-The addon accepts seconds with decimals, for example `{0:04.5}`. Seconds must be below `60`. Empty lines are ignored. Any malformed non-empty line prevents saving so a typo cannot silently remove a reminder.
+When exporting from [lorrgs.io](https://lorrgs.io), disable **Dynamic Timer** before copying the note. Phase-relative lines such as `{time:00:54.8,p2}` are not supported because lorrgs phases do not consistently map to DFT encounter phases.
+
+Minutes must be non-negative, seconds must be from `0` inclusive to `60` exclusive, and the reminder body must not be empty. Decimal seconds are supported. Empty lines are ignored. The previous `{M:SS} body` syntax and any other malformed non-empty line prevent the entire board from being saved, preserving the previously saved board.
 
 ## Commands
 

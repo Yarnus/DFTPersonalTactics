@@ -22,10 +22,16 @@ local function contextKey(encID,diff)
 end
 
 local function parseLine(line)
- local minutes,seconds,text=line:match("^%s*{%s*([%d%.]+)%s*:%s*([%d%.]+)%s*}%s*(.-)%s*$")
+ if line:match("^%s*{time:[^}]*,[pP]%s*%d+}")then
+  return nil,"不支持 Dynamic Timer"
+ end
+ local minutes,seconds,text=line:match("^%s*{time:(%d+):(%d+%.%d+)} %- (.+)$")
+ if not minutes then
+  minutes,seconds,text=line:match("^%s*{time:(%d+):(%d+)} %- (.+)$")
+ end
  minutes,seconds=tonumber(minutes),tonumber(seconds)
  if not minutes or not seconds or minutes<0 or seconds<0 or seconds>=60
- or not text or text=="" then return nil end
+ or not text or not text:match("%S")then return nil,"格式错误"end
  return {time=minutes*60+seconds,text=text}
 end
 
@@ -33,8 +39,8 @@ local function parseText(text)
  local out,invalid={},{}
  for line in (text.."\n"):gmatch("(.-)\n") do
   if line:match("%S") then
-   local item=parseLine(line)
-   if item then out[#out+1]=item else invalid[#invalid+1]=line end
+   local item,reason=parseLine(line)
+   if item then out[#out+1]=item else invalid[#invalid+1]={line=line,reason=reason}end
   end
  end
  table.sort(out,function(a,b)return a.time<b.time end)
@@ -44,7 +50,11 @@ end
 local function serialize(items)
  local lines={}
  for _,item in ipairs(items or{})do
-  lines[#lines+1]=string.format("{0:%04.1f} %s",item.time,item.text)
+  local minutes=math.floor(item.time/60)
+  local seconds=item.time-minutes*60
+  local secondsText=tostring(seconds)
+  if seconds<10 then secondsText="0"..secondsText end
+  lines[#lines+1]=string.format("{time:%02d:%s} - %s",minutes,secondsText,item.text)
  end
  return table.concat(lines,"\n")
 end
@@ -74,7 +84,7 @@ local function saveEditor()
  local encID,diff=selectedContext()
  if not encID then status:SetText("Boss ID 无效");return end
  local items,invalid=parseText(editBox:GetText()or"")
- if#invalid>0 then status:SetText("未保存：格式错误 "..invalid[1]);return end
+ if#invalid>0 then status:SetText("未保存："..invalid[1].reason.." "..invalid[1].line);return end
  DB.boards[contextKey(encID,diff)]=items
  DB.selectedBoss=encID
  DB.selectedDiff=diff
@@ -109,7 +119,7 @@ local function openEditor()
   frame:SetBackdrop({bgFile="Interface\\Buttons\\WHITE8x8",edgeFile="Interface\\Buttons\\WHITE8x8",edgeSize=1})
   frame:SetBackdropColor(0.04,0.04,0.06,0.98);frame:SetBackdropBorderColor(0.3,0.3,0.4,1)
   local title=frame:CreateFontString(nil,"OVERLAY","GameFontNormalLarge");title:SetPoint("TOPLEFT",16,-14);title:SetText("DFT 个人战术板")
-  local hint=frame:CreateFontString(nil,"OVERLAY","GameFontHighlightSmall");hint:SetPoint("TOPLEFT",16,-44);hint:SetPoint("TOPRIGHT",-16,-44);hint:SetJustifyH("LEFT");hint:SetText("一行一个提醒：{0:04} 王者大军；难度支持 N / H / M")
+  local hint=frame:CreateFontString(nil,"OVERLAY","GameFontHighlightSmall");hint:SetPoint("TOPLEFT",16,-44);hint:SetPoint("TOPRIGHT",-16,-44);hint:SetJustifyH("LEFT");hint:SetText("一行一个提醒：{time:00:04.0} - {spell:42650}；难度支持 N / H / M")
   local bossLabel=frame:CreateFontString(nil,"OVERLAY","GameFontNormalSmall");bossLabel:SetPoint("TOPLEFT",16,-78);bossLabel:SetText("Boss ID")
   bossBox=CreateFrame("EditBox",nil,frame,"InputBoxTemplate");bossBox:SetSize(90,24);bossBox:SetPoint("LEFT",bossLabel,"RIGHT",8,0);bossBox:SetAutoFocus(false)
   local diffLabel=frame:CreateFontString(nil,"OVERLAY","GameFontNormalSmall");diffLabel:SetPoint("LEFT",bossBox,"RIGHT",18,0);diffLabel:SetText("难度 N/H/M")
@@ -135,7 +145,7 @@ local function buildSettings(panel)
  local lead=panel:CreateFontString(nil,"OVERLAY","GameFontNormal");lead:SetPoint("TOPLEFT",20,-105);lead:SetText("提前倒数秒数")
  local leadInput=CreateFrame("EditBox",nil,panel,"InputBoxTemplate");leadInput:SetSize(60,24);leadInput:SetPoint("LEFT",lead,"RIGHT",10,0);leadInput:SetAutoFocus(false);leadInput:SetText(tostring(DB.leadTime or 5));leadInput:SetScript("OnEnterPressed",function(self)DB.leadTime=math.max(0,tonumber(self:GetText())or 5);self:ClearFocus()end)
  local edit=CreateFrame("Button",nil,panel,"UIPanelButtonTemplate");edit:SetSize(160,26);edit:SetPoint("TOPLEFT",20,-145);edit:SetText("打开个人战术编辑器");edit:SetScript("OnClick",openEditor)
- local format=panel:CreateFontString(nil,"OVERLAY","GameFontHighlightSmall");format:SetPoint("TOPLEFT",20,-190);format:SetText("格式示例：\n{0:04} 王者大军\n{0:35} 第二轮爆发\n\n{0:04} 表示 Boss 开战后 4 秒。")
+ local format=panel:CreateFontString(nil,"OVERLAY","GameFontHighlightSmall");format:SetPoint("TOPLEFT",20,-190);format:SetText("格式示例：\n{time:00:04.0} - {spell:42650}\n{time:00:35.5} - 第二轮爆发\n\n请关闭 lorrgs Dynamic Timer；不支持 {time:...,pN}。")
 end
 
 SLASH_DFTPERSONALTACTICS1="/dftpt"

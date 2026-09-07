@@ -1,0 +1,10 @@
+package-as: DFTPersonalTactics
+
+ignore:
+  - .github
+  - .gitignore
+  - AGENTS.md
+  - README.md
+  - scripts
+  - tests
+  - assets/*.svg
