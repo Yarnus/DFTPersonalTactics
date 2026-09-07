@@ -1,0 +1,11 @@
+## Interface: 120100
+## Title: DFT Personal Tactics
+## Title-zhCN: DFT 个人战术板
+## Notes: Personal boss burst reminders for DreamForgeTools
+## Notes-zhCN: 为 DreamForgeTools 添加个人爆发时间提醒
+## Author: DreamForgeTools
+## Version: 1.0.0
+## RequiredDeps: DreamForgeTools
+## SavedVariables: DFTPersonalTacticsDB
+
+DFTPersonalTactics.lua

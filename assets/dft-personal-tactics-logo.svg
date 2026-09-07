@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 280" role="img" aria-labelledby="title desc">
+  <title id="title">DFT Personal Tactics</title>
+  <desc id="desc">DFT Personal Tactics logo with a brass clock and teal-lit inn.</desc>
+  <rect width="960" height="280" rx="24" fill="#11141A"/>
+  <rect x="8" y="8" width="944" height="264" rx="17" fill="none" stroke="#D6A84F" stroke-width="4"/>
+
+  <circle cx="142" cy="140" r="94" fill="#181D24" stroke="#E1B95F" stroke-width="10"/>
+  <circle cx="142" cy="140" r="78" fill="none" stroke="#4BC4BD" stroke-width="3" stroke-dasharray="7 9"/>
+  <g stroke="#F3DDA3" stroke-width="6" stroke-linecap="round">
+    <path d="M142 52v13M142 215v13M54 140h13M217 140h13"/>
+  </g>
+  <path d="m81 141 61-54 61 54" fill="#11141A" stroke="#E1B95F" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M96 136v61h92v-61" fill="#202832" stroke="#E1B95F" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M122 197v-38c0-14 9-24 20-24s20 10 20 24v38" fill="#11141A" stroke="#4BC4BD" stroke-width="7"/>
+  <path d="M142 141v-32M142 141l26-16" fill="none" stroke="#F4E5BA" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="142" cy="141" r="8" fill="#D6A84F" stroke="#11141A" stroke-width="3"/>
+
+  <text x="275" y="114" fill="#F3DDA3" font-family="Georgia, 'Times New Roman', serif" font-size="50" font-weight="700" letter-spacing="0">DFT PERSONAL TACTICS</text>
+  <path d="M277 137h590" stroke="#4BC4BD" stroke-width="4"/>
+  <text x="277" y="192" fill="#FFFFFF" font-family="'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="34" font-weight="600" letter-spacing="0">时空旅馆 · 个人战术板</text>
+  <text x="279" y="226" fill="#9FA9B5" font-family="Arial, sans-serif" font-size="19" letter-spacing="0">Boss burst reminders, right on time.</text>
+</svg>

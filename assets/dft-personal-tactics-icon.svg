@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">DFT Personal Tactics addon icon</title>
+  <desc id="desc">A brass clock surrounding a teal-lit inn doorway.</desc>
+  <rect width="512" height="512" rx="48" fill="#11141A"/>
+  <rect x="12" y="12" width="488" height="488" rx="38" fill="none" stroke="#D6A84F" stroke-width="12"/>
+
+  <circle cx="256" cy="252" r="177" fill="#181D24" stroke="#E1B95F" stroke-width="18"/>
+  <circle cx="256" cy="252" r="150" fill="none" stroke="#4BC4BD" stroke-width="5" stroke-dasharray="11 14"/>
+
+  <g stroke="#F3DDA3" stroke-width="10" stroke-linecap="round">
+    <path d="M256 88v25M256 391v25M92 252h25M395 252h25"/>
+    <path d="M140 136l18 18M354 350l18 18M140 368l18-18M354 154l18-18"/>
+  </g>
+
+  <path d="M143 250 256 151l113 99" fill="#11141A" stroke="#E1B95F" stroke-width="17" stroke-linejoin="round"/>
+  <path d="M171 241v112h170V241" fill="#202832" stroke="#E1B95F" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M218 353v-72c0-25 17-43 38-43s38 18 38 43v72" fill="#11141A" stroke="#4BC4BD" stroke-width="13"/>
+  <path d="M256 252v-58M256 252l48-30" fill="none" stroke="#F4E5BA" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="256" cy="252" r="15" fill="#D6A84F" stroke="#11141A" stroke-width="6"/>
+  <circle cx="275" cy="300" r="6" fill="#E1B95F"/>
+
+  <path d="M133 431h246" stroke="#4BC4BD" stroke-width="8" stroke-linecap="round"/>
+</svg>
